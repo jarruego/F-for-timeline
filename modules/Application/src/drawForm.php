@@ -10,11 +10,12 @@
 function drawForm($formDefinition, $action, $values, $method='post')
 {
     if($values)
-    foreach ($values as $key => $value)
     {
-        $formDefinition[$key]['defaultValue']=$value;
+        foreach ($values as $key => $value2)
+        {
+            $formDefinition[$key]['defaultValue']=$value2;
+        }
     }
-    
     $html='';
 
     $html.="<div id=\"formulario\">".chr(13)."<label class=\"titulo\" >TimeLine Form</label>";
@@ -23,7 +24,6 @@ function drawForm($formDefinition, $action, $values, $method='post')
     
     foreach ($formDefinition as $key => $value)
     {
-        
         switch ($value['type'])
         {
             case 'html':
@@ -37,6 +37,11 @@ function drawForm($formDefinition, $action, $values, $method='post')
                 $html.=chr(13)."<label>".$value['label']."</label>
                         <input type=\"".$value['type']."\" 
                         placeholder=\"".$value['placeholder']."\"
+                               name=\"".$value['name']."\" 
+                              value=\"".$value['defaultValue']."\">";
+            break;
+            case 'hidden':
+                $html.=chr(13)."<input type=\"".$value['type']."\" 
                                name=\"".$value['name']."\" 
                               value=\"".$value['defaultValue']."\">";
             break;
