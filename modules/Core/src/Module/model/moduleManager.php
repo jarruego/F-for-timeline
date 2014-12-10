@@ -5,31 +5,47 @@
  * 
  * @param string $configfile
  */
-function moduleManager($configfile)
+class Core_src_Module_model_moduleManager
 {
-    include $configfile;
+    public static $config;
     
-    foreach ($config['modules'] as $module)
+    private static function loadConfig($configFile)
     {
-        $globalConfig=array();
-        $localConfig=array();
-        
-        $globalfile = __DIR__.'/../../../../../config/autoload/'
-                      .strtolower($module).'.global.php';
-        if(file_exists($globalfile))
+        include ($configFile);
+        foreach ($config['modules'] as $module)
         {
-            include ($globalfile);
-            $globalConfig = $config;
+            $globalConfig=array();
+            $localConfig=array();
+    
+            $globalfile = __DIR__.'/../../../../../config/autoload/'
+                .strtolower($module).'.global.php';
+            if(file_exists($globalfile))
+            {
+                include ($globalfile);
+                $globalConfig = $config;
+            }
+    
+            $localfile = __DIR__.'/../../../../../config/autoload/'
+                .strtolower($module).'.local.php';
+            if(file_exists($localfile))
+            {
+                include ($localfile);
+                $localConfig = $config;
+            }
+            $config = array_replace_recursive($globalConfig,$localConfig);
         }
-        
-        $localfile = __DIR__.'/../../../../../config/autoload/'
-                    .strtolower($module).'.local.php';
-        if(file_exists($localfile))
-        {
-            include ($localfile);
-            $localConfig = $config;
-        }
-        $config = array_replace_recursive($globalConfig,$localConfig);
+        self::$config = $config;
     }
-    return $config;
+    
+    public static function getConfig($configFile)
+    {
+        if (isset(self::$config)){
+            return self::$config;
+        }   else {
+            self::loadConfig($configFile);
+            return self::$config;
+        }
+    }
+    
 }
+

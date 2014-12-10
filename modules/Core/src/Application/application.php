@@ -13,13 +13,11 @@ class Core_src_Application_application
     public function __construct($config)
     {
 
-        include_once '../modules/Core/src/Router/model/parseUrl.php';
-        include_once '../modules/Core/src/Module/model/moduleManager.php';
-              
+        include_once '../modules/Core/src/Router/model/parseUrl.php';             
         
-        self::$config = moduleManager($config);
+        self::$config = Core_src_Module_model_moduleManager::getConfig($config);
 
-        $request = parseURL();
+        $request = Core_src_Router_model_parseUrl::parseURL();
         echo "<pre>Request: ";
         print_r($config);
         echo "</pre>";
