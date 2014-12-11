@@ -2,26 +2,35 @@
 namespace Core\Application;
 
 
+<<<<<<< HEAD
 use \Core\Module\model as moduleM;
 use \Core\Router\model as router;
 
+=======
+use \Core\Module\model as module;
+use \Core\Router\model\parseUrl as getRequest;
+>>>>>>> 51f5a390237fff6783cd5d3c1b7e880060dabfcc
 
 class application
 {        
     static $view;
     static $config;
     static $controller;
-    static $action;  
+    static $action;
+    static $params;
     
     public static function setConfig($config)
     {
-        include_once '../modules/Core/src/Router/model/parseUrl.php';
-        include_once '../modules/Core/src/Module/model/moduleManager.php';
-        self::$config = moduleManager($config);  
-        $request = parseURL();
+        self::$config = module\moduleManager::getConfig($config);
+        $request = getRequest::parseURL();
+       
         self::$controller = $request['controller'];
         self::$action = $request['action'];
+<<<<<<< HEAD
 
+=======
+        self::$params = $request['params'];
+>>>>>>> 51f5a390237fff6783cd5d3c1b7e880060dabfcc
     }
 
     public static function getConfig()
@@ -48,5 +57,6 @@ class application
     {
         echo self::$view;
         echo $layout;
+               
     }    
 }
