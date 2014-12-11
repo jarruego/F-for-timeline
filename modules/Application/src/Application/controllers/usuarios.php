@@ -112,11 +112,9 @@ class usuarios
     public function select()
     {
         
-<<<<<<< HEAD
+
        $config =  \Core\Application\application::getConfig();
-=======
-        $config =  \Core\Application\application::getConfig();
->>>>>>> 04d8d5d7c250678a4e751244ac7334cb3fec1d3a
+
         
         $data = fetchAllUser($config);
         include ('/../views/usuarios/select.phtml');
@@ -125,23 +123,5 @@ class usuarios
 
 
 
-// switch ($request['action'])
-// {
-//     case 'insert':
-        
-//     break;
-//     case 'update':
-        
-       
-//     break;
-//     case 'delete':
-//         echo "esto es el delete";
-        
-//     break;
-//     default:
-//     case 'select':
-
-//     break;
-// }
 
 
