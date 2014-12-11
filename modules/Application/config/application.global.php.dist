@@ -1,9 +1,0 @@
-<?php
-$config = array(
-    'database'=>array(
-        'host'=>'localhost',
-        'user'=>'php',
-        'password'=>'1234',
-        'db'=>'timeline'
-    ),    
-);
